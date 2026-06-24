@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght=300;400;500;600;700;800;900&display=swap');
 
 * {
     margin: 0;
@@ -78,6 +78,7 @@ section {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 4rem; /* Added gap to prevent elements from crashing into each other */
 }
 
 .home-content {
@@ -91,6 +92,13 @@ section {
 
 .home-content h3:nth-of-type(2) {
     margin-bottom: 2rem;
+}
+
+.home-badge {
+    display: inline-block;
+    margin-bottom: 1.8rem;
+    font-size: 1.4rem;
+    padding: .8rem 2.2rem;
 }
 
 span {
@@ -129,6 +137,7 @@ span {
     color: var(--bg-color);
     box-shadow: 0 0 1rem var(--icon-color, var(--main-color));
 }
+
 .btn-box {
     display: flex;
     gap: 1.5rem;
@@ -145,6 +154,7 @@ span {
     letter-spacing: .1rem;
     font-weight: 600;
     transition: .5s ease;
+    margin-right: 1.5rem; /* Added spatial separation for home buttons */
 }
 
 .btn:hover {
@@ -155,22 +165,21 @@ span {
 }
 
 .home-img {
-  width: 35vw;
-  height: 35vw;
-  border-radius: 50%;
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 0 2rem var(--main-color);
+    width: 35vw;
+    height: 35vw;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 2rem var(--main-color);
+    animation: floatImage 4s ease-in-out infinite; /* Added the animation hook here */
 }  
 
-
-/* Added shape and floating animation to the image */
 .home-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 @keyframes floatImage {
@@ -221,6 +230,8 @@ span {
     line-height: 1.6;
     margin-bottom: 2rem;
 }
+
+/* --- SKILLS SECTION --- */
 .skills {
     background: var(--bg-color);
     min-height: auto;
@@ -311,6 +322,7 @@ span {
     opacity: 1;
     box-shadow: 0 0 1rem var(--skill-color, var(--main-color));
 }
+
 .skill-box .custom-svg {
     width: 4.5rem;
     height: 4.5rem;
@@ -318,6 +330,8 @@ span {
     fill: var(--skill-color, var(--main-color));
     transition: .4s ease;
 }
+
+/* --- SOFT SKILLS --- */
 .soft-skills-container {
     margin-top: 6rem;
     width: 100%;
@@ -402,4 +416,129 @@ span {
 
 .soft-card:hover .icon-sq i {
     color: #ffffff;
+}
+
+/* --- PROJECTS SECTION --- */
+.projects {
+    background: var(--second-bg-color);
+}
+
+.projects .heading {
+    text-align: center;
+    margin-bottom: 6rem;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(32rem, 1fr));
+    gap: 3.5rem;
+    max-width: 120rem;
+    margin: 0 auto;
+}
+
+.project-card {
+    background: #0d1017;
+    border: .1rem solid #1c212d;
+    border-radius: 2rem;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: .4s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-.8rem);
+    border-color: #a855f7;
+    box-shadow: 0 1.5rem 3rem rgba(0, 0, 0, 0.4);
+}
+
+.project-img {
+    width: 100%;
+    height: 22rem;
+    overflow: hidden;
+}
+
+.project-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    transition: .5s ease;
+}
+
+.project-card:hover .project-img img {
+    transform: scale(1.05);
+}
+
+.project-content {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: space-between;
+}
+
+.project-content h3 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 1.2rem;
+}
+
+.project-content p {
+    font-size: 1.4rem;
+    color: #94a3b8;
+    line-height: 1.6;
+    margin-bottom: 2rem; /* Added margin below paragraph */
+}
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 2rem;
+}
+
+.tech-stack span {
+    background: rgba(14, 238, 255, 0.1);
+    color: var(--main-color);
+    padding: 0.4rem 1rem;
+    font-size: 1.2rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+}
+
+.project-btns {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.p-btn {
+    padding: 0.8rem 1.6rem;
+    font-size: 1.4rem;
+    font-weight: 500;
+    border-radius: 0.8rem;
+    transition: 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.code-btn {
+    background: #1c212d;
+    color: var(--text-color);
+    border: 0.1rem solid #323946;
+}
+
+.code-btn:hover {
+    background: #2d3548;
+}
+
+.demo-btn {
+    background: var(--main-color);
+    color: var(--bg-color);
+}
+
+.demo-btn:hover {
+    box-shadow: 0 0 1rem var(--main-color);
 }
