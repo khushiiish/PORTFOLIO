@@ -148,28 +148,66 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==========================================
-    // 7. TIMEZONE CLOCK UPDATER (IST UTC+5:30)
+    // 7. PROJECT SEARCH & FILTER SYSTEM
     // ==========================================
-    function updateTimezoneClock() {
-        const clockEl = document.getElementById('timezone-clock');
-        if (!clockEl) return;
+    const searchInput = document.getElementById('projectSearch');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
 
-        const options = {
-            timeZone: 'Asia/Kolkata',
-            hour: '2-digit',
-            minute: '2-digit',
-            second: '2-digit',
-            hour12: true
-        };
+    if (searchInput && projectCards.length > 0) {
+        searchInput.addEventListener('input', filterProjects);
 
-        const formatter = new Intl.DateTimeFormat('en-US', options);
-        const formattedTime = formatter.format(new Date());
-        clockEl.textContent = `${formattedTime} IST`;
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                filterProjects();
+            });
+        });
+
+        function filterProjects() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            const activeChip = document.querySelector('.filter-btn.active');
+            const selectedCategory = activeChip ? activeChip.getAttribute('data-filter') : 'all';
+
+            projectCards.forEach(card => {
+                const title = card.getAttribute('data-title') ? card.getAttribute('data-title').toLowerCase() : '';
+                const category = card.getAttribute('data-category') ? card.getAttribute('data-category').toLowerCase() : '';
+                
+                const tags = Array.from(card.querySelectorAll('.project-tech-stack span'))
+                    .map(span => span.textContent.toLowerCase());
+                
+                const description = card.querySelector('p') ? card.querySelector('p').textContent.toLowerCase() : '';
+
+                const matchesSearch = title.includes(searchTerm) || 
+                                     tags.some(tag => tag.includes(searchTerm)) || 
+                                     description.includes(searchTerm);
+                                     
+                const matchesCategory = selectedCategory === 'all' || category === selectedCategory;
+
+                if (matchesSearch && matchesCategory) {
+                    if (card.hideTimeout) {
+                        clearTimeout(card.hideTimeout);
+                        card.hideTimeout = null;
+                    }
+                    card.style.display = '';
+                    setTimeout(() => {
+                        card.classList.remove('card-hidden');
+                    }, 20);
+                } else {
+                    if (!card.classList.contains('card-hidden')) {
+                        card.classList.add('card-hidden');
+                        if (!card.hideTimeout) {
+                            card.hideTimeout = setTimeout(() => {
+                                card.style.display = 'none';
+                                card.hideTimeout = null;
+                            }, 400); // 400ms matches the transition duration in CSS
+                        }
+                    }
+                }
+            });
+        }
     }
-
-    // Initialize and run time ticking
-    updateTimezoneClock();
-    setInterval(updateTimezoneClock, 1000);
 
     // ==========================================
     // 8. INTER-PAGE WIPE TRANSITIONS HANDLER
