@@ -563,7 +563,7 @@
 
                 <!-- Right Side: Minimal floating label input form -->
                 <div class="contact-form-wrapper animate-in delay-200">
-                    <form class="contact-form" action="https://formspree.io/f/ks969250@gmail.com" method="POST">
+                    <form class="contact-form" id="contact-form">
                         <div class="form-group">
                             <input type="text" name="name" id="form-name" class="form-input" placeholder=" " required autocomplete="off">
                             <label for="form-name" class="form-label">Full Name</label>
@@ -585,6 +585,7 @@
                             <div class="form-line"></div>
                         </div>
                         <button type="submit" class="btn-primary magnetic">Send Message <i class="fa-solid fa-paper-plane"></i></button>
+                        <div id="form-status" class="form-status-message"></div>
                     </form>
                 </div>
 

@@ -230,6 +230,62 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // ==========================================
+    // 9. FORMSPREE AJAX SUBMISSION HANDLER
+    // ==========================================
+    const form = document.getElementById("contact-form");
+    const status = document.getElementById("form-status");
+
+    if (form) {
+      form.addEventListener("submit", async function(event) {
+        event.preventDefault(); // Stop standard browser redirect page load
+        
+        // Create Form Data payload
+        const data = new FormData(event.target);
+        
+        // Visual feedback: Show loading state on the submit button
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = 'Sending message...';
+
+        // Send request via Fetch API
+        try {
+          const response = await fetch("https://formspree.io/f/mzdlgzkn", {
+            method: "POST",
+            body: data,
+            headers: {
+              'Accept': 'application/json'
+            }
+          });
+
+          if (response.ok) {
+            // Success Handler
+            status.innerHTML = "✨ Thank you! Your message has been sent successfully.";
+            status.className = "form-status-message success";
+            form.reset(); // Clear input fields
+          } else {
+            // Error Handler from server side Response
+            const responseData = await response.json();
+            if (responseData && Object.hasOwn(responseData, 'errors')) {
+              status.innerHTML = responseData['errors'].map(error => error.message).join(", ");
+            } else {
+              status.innerHTML = "❌ Oops! There was a problem submitting your form.";
+            }
+            status.className = "form-status-message error";
+          }
+        } catch (error) {
+          // Network Level Error Handler
+          status.innerHTML = "❌ Oops! A network error occurred. Please try again.";
+          status.className = "form-status-message error";
+        } finally {
+          // Re-enable the submit button
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnText;
+        }
+      });
+    }
+
 });
 
 // Global navigation functions

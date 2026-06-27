@@ -1047,6 +1047,31 @@ textarea.form-input {
     width: 100%;
 }
 
+/* Form Status Messages */
+.form-status-message {
+    margin-top: 2rem;
+    font-size: 1.5rem;
+    padding: 1.2rem 2rem;
+    border-radius: 12px;
+    display: none;
+    font-weight: 500;
+    transition: var(--transition-smooth);
+}
+
+.form-status-message.success {
+    display: block;
+    background: rgba(46, 117, 89, 0.15);
+    border: 1px solid #2e7559;
+    color: #4ade80;
+}
+
+.form-status-message.error {
+    display: block;
+    background: rgba(224, 94, 56, 0.15);
+    border: 1px solid #e05e38;
+    color: #f87171;
+}
+
 /* --- FOOTER SECTION --- */
 .footer {
     background: var(--bg-dark);
